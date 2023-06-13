@@ -11,6 +11,7 @@ const moment = require("moment");
 //register
 router.post("/register", async (req, res) => {
   try {
+    console.log(req.body.email);
     const userExists = await User.findOne({ email: req.body.email });
 
     if (userExists) {
@@ -33,6 +34,7 @@ router.post("/register", async (req, res) => {
       .status(200)
       .send({ message: "User created successfully", success: true });
   } catch (error) {
+    console.log(error);
     res
       .status(500)
       .send({ message: "error creating user", success: false, error });
