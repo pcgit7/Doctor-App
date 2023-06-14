@@ -9,13 +9,14 @@ import moment from "moment";
 
 const Appointment = () => {
 
+    const baseUrl = "https://doctor-app-backend-yap2.onrender.com";
     const [appointments, setAppointments] = useState([]);
     const dispatch = useDispatch();
     
     const getAppointmentsData = async () => {
       try {
         dispatch(showLoading());
-        const response = await axios.get("/api/user/get-appointments-by-user-id", {
+        const response = await axios.get(`${baseUrl}/api/user/get-appointments-by-user-id`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },

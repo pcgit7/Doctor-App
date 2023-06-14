@@ -20,12 +20,13 @@ const BookAppointment = () => {
   const [date, setDate] = useState("");
   const params = useParams();
   const dispatch = useDispatch();
+  const baseUrl = "https://doctor-app-backend-yap2.onrender.com";
 
   const getDoctorData = async () => {
     try {
       dispatch(showLoading());
       const response = await axios.post(
-        "/api/doctor/get-doctor-info-by-id",
+        `${baseUrl}/api/doctor/get-doctor-info-by-id`,
         {
           doctorId: params.doctorId,
         },
@@ -47,9 +48,10 @@ const BookAppointment = () => {
 
   const bookNow = async () => {
     try {
+      
       dispatch(showLoading());
       const response = await axios.post(
-        "/api/user/book-appointment",
+        `${baseUrl}/api/user/book-appointment`,
         {
           doctorId: params.doctorId,
           userId: user._id,
@@ -79,7 +81,7 @@ const BookAppointment = () => {
     try {
       dispatch(showLoading());
       const response = await axios.post(
-        "/api/user/check-booking-availability",
+        `${baseUrl}/api/user/check-booking-availability`,
         {
           doctorId: params.doctorId,
           userId: user._id,

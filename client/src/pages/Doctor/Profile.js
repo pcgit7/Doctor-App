@@ -9,6 +9,7 @@ import DoctorForm from "../../components/DoctorForm";
 import moment from "moment";
 
 const Profile = () => {
+  const baseUrl = "https://doctor-app-backend-yap2.onrender.com";
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.user);
@@ -20,7 +21,7 @@ const Profile = () => {
       
       dispatch(showLoading());
       const response = await axios.post(
-        "/api/doctor/update-doctor-profile",
+        `${baseUrl}/api/doctor/update-doctor-profile`,
         {
             userId: user._id,  
             ...values,
@@ -51,7 +52,7 @@ const Profile = () => {
     try {
       dispatch(showLoading());
       const response = await axios.post(
-        "/api/doctor/get-doctor-info-by-user-id",{},
+        `${baseUrl}/api/doctor/get-doctor-info-by-user-id`,{},
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
