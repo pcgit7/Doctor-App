@@ -15,10 +15,10 @@ const ProtectedRoutes = (props) => {
 
   const getUser = async () => {
     try {
-
+      const baseUrl = "https://doctor-app-backend-yap2.onrender.com";
        dispatch(showLoading()); 
        const response = await axios.post(
-        "/api/user/get-user-info-by-id",
+        `${baseUrl}/api/user/get-user-info-by-id`,
         { token: localStorage.getItem("token") },
         {
           headers: {

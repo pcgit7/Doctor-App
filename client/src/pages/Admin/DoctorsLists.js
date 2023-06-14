@@ -9,11 +9,12 @@ import { toast } from "react-hot-toast";
 const DoctorsLists = () => {
   const [doctors, setDoctors] = useState([]);
   const dispatch = useDispatch();
-  
+  const baseUrl = "https://doctor-app-backend-yap2.onrender.com";
+
   const getDoctorsData = async () => {
     try {
       dispatch(showLoading());
-      const response = await axios.get("/api/admin/get-all-doctors", {
+      const response = await axios.get(`${baseUrl}/api/admin/get-all-doctors`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -31,7 +32,7 @@ const DoctorsLists = () => {
   const changeDoctorStatus = async (record,status) => {
     try {
       dispatch(showLoading());
-      const response = await axios.post("/api/admin/change-doctor-status",{
+      const response = await axios.post(`${baseUrl}/api/admin/change-doctor-status`,{
         userId : record.userId,
         doctorId : record._id,
         status : status,

@@ -10,12 +10,13 @@ import moment from "moment";
 const DoctorAppointment = () => {
   const [appointments, setAppointments] = useState([]);
   const dispatch = useDispatch();
+  const baseUrl = "https://doctor-app-backend-yap2.onrender.com";
 
   const getAppointmentsData = async () => {
     try {
       dispatch(showLoading());
       const response = await axios.get(
-        "/api/doctor/get-appointments-by-doctor-id",
+        `${baseUrl}/api/doctor/get-appointments-by-doctor-id`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -36,7 +37,7 @@ const DoctorAppointment = () => {
     try {
       dispatch(showLoading());
       const response = await axios.post(
-        "/api/doctor/change-appointment-status",
+        `${baseUrl}/api/doctor/change-appointment-status`,
         {
           appointmentId: record._id,
           status: status,

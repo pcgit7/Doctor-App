@@ -12,12 +12,13 @@ const Notification = () => {
   const { user } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const baseUrl = "https://doctor-app-backend-yap2.onrender.com";
 
   const markAllAsSeen = async () => {
     try {
       dispatch(showLoading());
       const response = await axios.post(
-        "/api/user/mark-all-notifications-as-seen",
+        `${baseUrl}/api/user/mark-all-notifications-as-seen`,
         {
           userId: user._id,
         },
@@ -41,8 +42,9 @@ const Notification = () => {
   const deleteAll = async () => {
     try {
       dispatch(showLoading());
+      
       const response = await axios.post(
-        "/api/user/delete-all-notifications-as-seen",
+        `${baseUrl}/api/user/delete-all-notifications-as-seen`,
         {
           userId: user._id,
         },

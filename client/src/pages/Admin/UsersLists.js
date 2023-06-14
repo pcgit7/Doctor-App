@@ -9,10 +9,12 @@ import moment from "moment";
 const UsersLists = () => {
   const [users, setUsers] = useState([]);
   const dispatch = useDispatch();
+  const baseUrl = "https://doctor-app-backend-yap2.onrender.com";
+
   const getUsersData = async () => {
     try {
       dispatch(showLoading());
-      const response = await axios.get("/api/admin/get-all-users", {
+      const response = await axios.get(`${baseUrl}/api/admin/get-all-users`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },

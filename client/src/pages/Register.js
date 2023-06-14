@@ -9,7 +9,7 @@ import { hideLoading, showLoading } from '../redux/alertsSlice';
 
 const Register = () => {
 
-  //const baseUrl = "https://doctor-app-backend-yap2.onrender.com";
+  const baseUrl = "https://doctor-app-backend-yap2.onrender.com";
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const onfinish = async (values) => {
@@ -17,7 +17,7 @@ const Register = () => {
     {
       dispatch(showLoading());
 
-      const response = await axios.post(`/api/user/register`,values);
+      const response = await axios.post(`${baseUrl}/api/user/register`,values);
       dispatch(hideLoading());
       if(response.data.success)
       {

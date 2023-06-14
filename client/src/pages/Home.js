@@ -13,8 +13,9 @@ const Home = () => {
 
   const getData = async () => {
     try {
+      const baseUrl = "https://doctor-app-backend-yap2.onrender.com";
       dispatch(showLoading());
-      const response = await axios.get("/api/user/get-all-approved-doctors", {
+      const response = await axios.get(`${baseUrl}/api/user/get-all-approved-doctors`, {
         headers: {
           Authorization: "Bearer " + localStorage.getItem("token"),
         },
