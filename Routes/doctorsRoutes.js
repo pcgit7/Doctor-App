@@ -98,7 +98,7 @@ router.post("/change-appointment-status", authMiddleware, async (req, res) => {
       onclickPath: "/appointments",
     });
 
-    await User.findByIdAndUpdate(appointment.userId, { unseenNotifications , isDoctor : status === 'blocked' ? false : true});
+    await User.findByIdAndUpdate(appointment.userId, { unseenNotifications });
 
     res.status(200).send({
       message: "Appointment status updated Successfully",

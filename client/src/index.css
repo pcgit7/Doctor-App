@@ -1,3 +1,4 @@
+
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
 
 *{
@@ -5,47 +6,54 @@
 }
 /* antd override */
 
-input{
+input {
   border-radius: 2px !important;
   border: 1px solid rgba(128, 128, 128, 0.521) !important;
   height: 40px !important;
 }
 
-input:focus , .ant-picker
-{
+input:focus,
+.ant-picker {
   outline: none !important;
   box-shadow: 0 !important;
   border: 1px solid gray !important;
 }
 
-label{
+label {
   font-size: 16px !important;
   color: black;
 }
 
-.ant-form-item
-{
+.ant-form-item {
   margin: 10px 0 !important;
 }
-.ant-picker-input input
-{
-  border: none !important ;
+
+.ant-picker-input input {
+  border: none !important;
 }
 
-.ant-picker
-{
+.ant-picker {
   height: 40px !important;
 }
-/* common styling */
 
-.spinner-border
-{
+/* common styling */
+.spinner-border {
   width: 5rem;
   height: 5rem;
-  color: white !important;
+  color: #3399CC !important;
+  animation: spin 2s linear infinite;
 }
-.spinner-parent
-{
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.spinner-parent {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -58,79 +66,83 @@ label{
   z-index: 2;
   width: 100%;
 }
-.page-title
-{
+
+.page-title {
   font-size: 25px;
-  color: rgba(0, 0, 0, 0.853);
+  color: #3399CC;
   font-weight: bold;
 }
-.card{
-  box-shadow: 0 0 2px gray;
+
+.card {
+  box-shadow: 0 0 2px #3399CC;
   border-radius: 0 !important;
 }
 
-.normal-text
-{
+.normal-text {
   font-size: 1rem;
 }
-.card-title
-{
+
+.card-title {
   font-size: 22px;
   font-weight: bold;
-  color: rgba(0, 0, 0, 0.671);
+  color: #3399CC;
 }
-.primary-button
-{
-  background-color: #005555 !important;
-  border-color: #005555 !important;
+
+.primary-button {
+  background-color: #3399CC !important;
+  border-color: #3399CC !important;
   height: 40px;
   color: white;
   font-size: 16px;
   width: max-content;
+  transition: background-color 0.3s ease-in-out;
 }
-.full-width-btn
-{
+
+.primary-button:hover {
+  background-color: #007BFF !important;
+}
+
+.full-width-btn {
   width: 100% !important;
 }
-.anchor
-{
-  color: black !important;
+
+.anchor {
+  color: #3399CC !important;
   text-decoration: underline;
   font-size: 16px;
   cursor: pointer;
 }
-.anchor:hover
-{
+
+.anchor:hover {
   text-decoration: underline !important;
 }
-p
-{
-  color: rgba(0,0,0,0.8);
+
+p {
+  color: rgba(0, 0, 0, 0.8);
   margin: 0 !important;
   padding: 0 !important;
 }
-.cursor-pointer{
+
+.cursor-pointer {
   cursor: pointer;
 }
-/* authentication pages*/
-.authentication
-{
+
+/* authentication pages */
+.authentication {
   height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #005555;
+  background-color: #3399CC;
 }
 
-.authentication-form
-{
+.authentication-form {
   width: 400px;
 }
 
-.authentication .card-title
-{
+.authentication .card-title {
   font-size: 1.5rem;
-  background-color: orangered;
+  background-color: #ff6f00;
   max-width: max-content;
   color: white;
   font-weight: bold;
