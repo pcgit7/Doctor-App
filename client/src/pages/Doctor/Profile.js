@@ -14,7 +14,6 @@ const Profile = () => {
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.user);
   const [doctor, setDoctor] = useState(null);
-
   
   const onFinish = async (values) => {
     try {

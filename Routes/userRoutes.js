@@ -100,6 +100,15 @@ router.post("/get-user-info-by-id", authMiddleware, async (req, res) => {
 //applying for Doctor
 router.post("/apply-doctor-account", authMiddleware, async (req, res) => {
   try {
+    const doctorExists = await Doctor.findOne({userId : req.body.userId});
+
+    if (doctorExists) {
+      console.log(doctorExists);
+      return res
+        .status(200)
+        .send({ message: "Already Applied", success: true });
+    }
+
     const newDoctor = new Doctor(req.body);
 
     await newDoctor.save();
