@@ -257,10 +257,33 @@ router.post("/book-appointment", authMiddleware, async (req, res) => {
 router.post("/check-booking-availability", authMiddleware, async (req, res) => {
   try {
     const date = moment(req.body.date, "DD-MM-YYYY").toISOString();
+    const time = moment(req.body.time, "HH:mm").toISOString();
     const fromTime = moment(req.body.time, "HH:mm").subtract(1,'hours').toISOString();
     const toTime = moment(req.body.time, "HH:mm")  .add(1,'hours').toISOString();
     const doctorId = req.body.doctorId;
+    const doctorInfo = req.body.doctorInfo;
 
+    const doctorTimeFrom = moment(doctorInfo.timings[0], "HH:mm").toISOString(); // Convert to ISO 8601 format
+    const doctorTimeTo = moment(doctorInfo.timings[1], "HH:mm").toISOString(); // Convert to ISO 8601 format
+
+    
+    if (moment(date).isBefore(new Date(), 'day')) {
+      return res.status(200).send({
+        message: "The given date is in the past.",
+        success: false,
+      });
+    };
+
+    if (time < doctorTimeFrom || time > doctorTimeTo) {
+      return res.status(200).send({
+        message: "Not Matching Doctor's Time",
+        success: false,
+      });
+    };
+
+    //console.log(req.body);
+
+    
     const appointments = await Appointment.find({
       doctorId,
       date,

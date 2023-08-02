@@ -63,9 +63,10 @@ const Appointment = () => {
           title: "Date & Time",
           dataIndex: "createdAt",
           render : (text,record) => {
+            const utcTime = moment.utc(record.time).format('l LT');
             return (
                 <span>
-                    {moment(record.date).format("DD-MM-YYYY")} {moment(record.time).format("HH:mm")}
+                    {moment(record.date).format("DD-MM-YYYY")} {moment(utcTime).format("HH:mm")}
                 </span>
             )
         },
