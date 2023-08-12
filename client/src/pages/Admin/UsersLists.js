@@ -48,7 +48,7 @@ const UsersLists = () => {
       dataIndex: "createdAt",
       render : (record,text) => {
         return (
-          moment(record.createdAt).format("DD-MM-YYYY")
+          moment(record).format("DD-MM-YYYY")
         )
       }
     },

@@ -3,9 +3,10 @@ const router = express.Router();
 const User = require("../Models/userModel");
 const Doctor = require("../Models/doctorModel");
 const authMiddleware = require("../middlewares/AuthMiddleWare");
+const authAdminMiddleware = require("../middlewares/AuthAdminMiddleWare");
 
 //get user data
-router.get("/get-all-users", authMiddleware, async (req, res) => {
+router.get("/get-all-users", authMiddleware,authAdminMiddleware, async (req, res) => {
   try {
     const users = await User.find({});
     res.status(200).send({
@@ -22,7 +23,7 @@ router.get("/get-all-users", authMiddleware, async (req, res) => {
 });
 
 //get doctor data
-router.get("/get-all-doctors", authMiddleware, async (req, res) => {
+router.get("/get-all-doctors", authMiddleware,authAdminMiddleware, async (req, res) => {
   try {
     const doctors = await Doctor.find({});
     res.status(200).send({
@@ -39,7 +40,7 @@ router.get("/get-all-doctors", authMiddleware, async (req, res) => {
 });
 
 //change doctor account status
-router.post("/change-doctor-status", authMiddleware, async (req, res) => {
+router.post("/change-doctor-status", authMiddleware,authAdminMiddleware, async (req, res) => {
   try {
     const { doctorId, status } = req.body;
     const doctor = await Doctor.findByIdAndUpdate(doctorId, {
