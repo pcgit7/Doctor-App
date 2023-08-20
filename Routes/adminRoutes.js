@@ -5,6 +5,7 @@ const Doctor = require("../Models/doctorModel");
 const authMiddleware = require("../middlewares/AuthMiddleWare");
 const authAdminMiddleware = require("../middlewares/AuthAdminMiddleWare");
 
+
 //get user data
 router.get("/get-all-users", authMiddleware,authAdminMiddleware, async (req, res) => {
   try {
