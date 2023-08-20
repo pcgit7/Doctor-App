@@ -128,7 +128,7 @@ const Layout = ({ children }) => {
               }}>
               <i className="ri-notification-line header-action-icon px-3"></i>
               </Badge>
-              <Link className="anchor mx-2" to="/profile">
+              
                 {user?.name}
               </Link>
             </div>
