@@ -9,7 +9,7 @@ import toast from "react-hot-toast";
 
 
 const PasswordReset = () => {
-  const baseUrl = "http://localhost:5000";
+  const baseUrl = "https://doctor-app-backend-yap2.onrender.com";
   const [email, setEmail] = useState("");
   const dispatch = useDispatch();
 

@@ -9,7 +9,7 @@ import { toast } from "react-hot-toast";
 const DoctorsLists = () => {
   const [doctors, setDoctors] = useState([]);
   const dispatch = useDispatch();
-  const baseUrl = "http://localhost:5000";
+  const baseUrl = "https://doctor-app-backend-yap2.onrender.com";
 
   const getDoctorsData = async () => {
     try {

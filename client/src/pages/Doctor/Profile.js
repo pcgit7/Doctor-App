@@ -9,7 +9,7 @@ import DoctorForm from "../../components/DoctorForm";
 import moment from "moment";
 
 const Profile = () => {
-  const baseUrl = "http://localhost:5000";
+  const baseUrl = "https://doctor-app-backend-yap2.onrender.com";
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.user);

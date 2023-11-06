@@ -8,7 +8,7 @@ import { hideLoading, showLoading } from "../redux/alertsSlice";
 import { useDispatch } from "react-redux";
 
 const ForgotPassword = () => {
-  const baseUrl = "http://localhost:5000";
+  const baseUrl = "https://doctor-app-backend-yap2.onrender.com";
   const navigate = useNavigate();
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");

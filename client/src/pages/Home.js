@@ -13,7 +13,7 @@ const Home = () => {
 
   const getData = async () => {
     try {
-      const baseUrl = "http://localhost:5000";
+      const baseUrl = "https://doctor-app-backend-yap2.onrender.com";
       dispatch(showLoading());
       const response = await axios.get(`${baseUrl}/api/user/get-all-approved-doctors`, {
         headers: {
