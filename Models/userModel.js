@@ -28,6 +28,9 @@ const userSchema = new mongoose.Schema({
     unseenNotifications : {
         type : Array,
         default : [],
+    },
+    verifyToken : {
+        type : String
     }
 },{
     timestamps : true

@@ -7,6 +7,19 @@ const authMiddleware = require("../middlewares/AuthMiddleWare");
 const Doctor = require("../Models/doctorModel");
 const Appointment = require("../Models/appointmentModel");
 const moment = require("moment");
+const nodemailer = require('nodemailer');
+const secretKey = process.env.JWT_SECRET;
+const gmail_pass = process.env.GMAIL_PASS;
+const front_end = process.env.FRONT_END_URL;
+
+//email config
+const transporter = nodemailer.createTransport({
+  service : "gmail",
+  auth : {
+      user : "messageforpriyanshu@gmail.com",
+      pass : gmail_pass
+  }
+});
 
 //register
 router.post("/register", async (req, res) => {
@@ -326,5 +339,108 @@ router.get("/get-appointments-by-user-id", authMiddleware, async (req, res) => {
     });
   }
 });
+
+//password Reset
+router.post('/sendPasswordResetLink' ,async (req,res) => {
+  const {email} = req.body;
+  
+  if(!email){
+    res.status(200).send({success:false,message : "Enter your email"});
+    return;
+  }
+  
+  try 
+  {
+      const userFind = await User.findOne({email : email});
+      
+      if(!userFind){
+        res.status(200).send({success : false , message : "User does not exist"});
+        return;
+      }
+      const token = jwt.sign({_id : userFind._id} , secretKey , {
+          expiresIn : "120s"
+      });
+
+      const setuserToken = await User.findByIdAndUpdate(userFind._id,{verifyToken : token});
+
+      if(setuserToken){
+          const mailOptions = {
+              from : "messageforpriyanshu@gmail.com",
+              to : email,
+              subject : "Sending Email for password reset",
+              text : `This link is valid for 2 minutes ${front_end}/forgotPassword/${userFind._id}/${token}/`
+          };
+
+          transporter.sendMail(mailOptions , (error,info) => {
+              if(error){
+                  res.status(200).send({success:false,message : "email not sent , please try again"});
+                  return;
+              }
+
+              else {
+                  //console.log("email sent" ,info.response);
+                  res.status(201).send({success : true,message : "Password change link sent to mail successfully"});
+                  return;
+              }
+          });
+      }
+  } catch (error) {
+      res.status(401).send({message : "invalid User"});
+  }
+});
+
+//to verify forgot-password-link
+router.get('/forgotPassword/:id/:token' , async (req,res) => {
+  try 
+  {
+      const {id , token} = req.params;
+
+      const validuser = await User.findOne({_id : id, verifyToken : token});
+
+      const verifyToken = jwt.verify(token,secretKey);
+
+      if(validuser && verifyToken._id){
+          res.status(201).send({success : true , validuser});
+          return;
+      }
+
+      else res.status(401).send({success : false , message : "Not Valid Link"});   
+  } catch (error) {
+      res.status(401).send({success:false , message : "invalid token"});
+    
+  }
+});
+
+//update password
+router.post("/password/:id/:token" , async(req,res) => {
+
+  try {
+      const {id,token} = req.params;
+      const {password} = req.body;
+
+      if(!password){
+        res.status(200).send({message : "Enter Password" , success : false});
+        return;
+      }
+      const validuser = await User.findOne({_id : id, verifyToken : token});
+
+      const verifyToken = jwt.verify(token,secretKey);
+
+      if(validuser && verifyToken._id){
+          const newPassword = await bcrypt.hash(password , 12);
+          const setNewUserPass = await User.findByIdAndUpdate(id,{password : newPassword});
+
+          await setNewUserPass.save(); 
+          res.status(201).send({success : true , setNewUserPass , message:"Password Updated Successfully"});
+          return;
+      }
+
+      else res.status(201).send({success : false , message : "user not exits"});
+  } 
+  catch (error) {
+      res.status(401).send({success:false , message : "invalid token"});
+  }
+});
+
 
 module.exports = router;

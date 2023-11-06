@@ -14,6 +14,8 @@ import Profile from "./pages/Doctor/Profile";
 import BookAppointment from "./pages/BookAppointment";
 import Appointment from "./pages/Appointment";
 import DoctorAppointment from "./pages/Doctor/DoctorAppointment";
+import PasswordReset from "./pages/PasswordReset";
+import ForgotPassword from "./pages/ForgotPassword";
 
 function App() {
   const { loading } = useSelector((state) => state.alerts);
@@ -45,62 +47,51 @@ function App() {
             </PublicRoutes>
           }
         />
-        <Route
-          path="/"
-          element={
+        <Route path="/password-reset" element={<PasswordReset />} />
+        <Route path="/forgotPassword/:id/:token" element={<ForgotPassword />} />
+        <Route path="/" element={
             <ProtectedRoutes>
               <Home />
             </ProtectedRoutes>
           }
         />
 
-        <Route
-          path="/apply-doctor"
-          element={
+        <Route path="/apply-doctor" element={
             <ProtectedRoutes>
               <ApplyDoctor />
             </ProtectedRoutes>
           }
         />
 
-        <Route
-          path="/notifications"
-          element={
+        <Route path="/notifications" element={
             <ProtectedRoutes>
               <Notification />
             </ProtectedRoutes>
           }
         />
 
-        <Route
-          path="/admin/users"
-          element={
+        <Route path="/admin/users" element={
             <ProtectedRoutes>
               <UsersLists />
             </ProtectedRoutes>
           }
         />
 
-        <Route
-          path="/admin/doctors"
-          element={
+        <Route path="/admin/doctors" element={
             <ProtectedRoutes>
               <DoctorsLists />
             </ProtectedRoutes>
           }
         />
 
-        <Route
-          path="/doctor/profile/:userId"
-          element={
+        <Route path="/doctor/profile/:userId" element={
             <ProtectedRoutes>
               <Profile />
             </ProtectedRoutes>
           }
         />
 
-        <Route
-          path="/book-appointment/:doctorId"
+        <Route path="/book-appointment/:doctorId"
           element={
             <ProtectedRoutes>
               <BookAppointment />

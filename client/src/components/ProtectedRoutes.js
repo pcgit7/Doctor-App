@@ -9,13 +9,13 @@ import { showLoading,hideLoading } from "../redux/alertsSlice";
 const ProtectedRoutes = (props) => {
     
   const { user } = useSelector((state) => state.user);
-  
+  const baseUrl = "http://localhost:5000";
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const getUser = async () => {
     try {
-      const baseUrl = "https://doctor-app-backend-yap2.onrender.com";
+      
        dispatch(showLoading()); 
        const response = await axios.post(
         `${baseUrl}/api/user/get-user-info-by-id`,

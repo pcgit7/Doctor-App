@@ -20,7 +20,7 @@ const BookAppointment = () => {
   const [date, setDate] = useState("");
   const params = useParams();
   const dispatch = useDispatch();
-  const baseUrl = "https://doctor-app-backend-yap2.onrender.com";
+  const baseUrl = "http://localhost:5000";
 
   const getDoctorData = async () => {
     try {

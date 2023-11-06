@@ -10,9 +10,10 @@ import { hideLoading, showLoading } from "../redux/alertsSlice";
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const baseUrl = "https://doctor-app-backend-yap2.onrender.com";
+  const baseUrl = "http://localhost:5000";
 
   const onfinish = async (values) => {
+
     try {
       dispatch(showLoading());
       const response = await axios.post(`${baseUrl}/api/user/login`, values);
@@ -47,7 +48,11 @@ const Login = () => {
             LOGIN
           </Button>
 
-          <Link to="/register" className="anchor mt-auto">
+          <Link to="/password-reset" className="anchor">
+            FORGOT PASSWORD
+          </Link>
+          
+          <Link to="/register" className="anchor">
             CLICK HERE TO REGISTER
           </Link>
         </Form>

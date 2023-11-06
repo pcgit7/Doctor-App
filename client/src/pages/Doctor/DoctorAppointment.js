@@ -10,7 +10,7 @@ import moment from "moment";
 const DoctorAppointment = () => {
   const [appointments, setAppointments] = useState([]);
   const dispatch = useDispatch();
-  const baseUrl = "https://doctor-app-backend-yap2.onrender.com";
+  const baseUrl = "http://localhost:5000";
 
   const getAppointmentsData = async () => {
     try {

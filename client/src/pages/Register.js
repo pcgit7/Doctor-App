@@ -9,7 +9,7 @@ import { hideLoading, showLoading } from '../redux/alertsSlice';
 
 const Register = () => {
 
-  const baseUrl = "https://doctor-app-backend-yap2.onrender.com";
+  const baseUrl = "http://localhost:5000";
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const onfinish = async (values) => {
