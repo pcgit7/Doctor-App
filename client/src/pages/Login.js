@@ -6,14 +6,12 @@ import toast from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import { hideLoading, showLoading } from "../redux/alertsSlice";
 
-
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const baseUrl = "https://doctor-app-backend-yap2.onrender.com";
 
-  const onfinish = async (values) => {
-
+  const onFinish = async (values) => {
     try {
       dispatch(showLoading());
       const response = await axios.post(`${baseUrl}/api/user/login`, values);
@@ -26,7 +24,23 @@ const Login = () => {
     } catch (error) {
       dispatch(hideLoading());
       console.log(error);
-      toast.error("something went wrong");
+      toast.error("Something went wrong");
+    }
+  };
+
+  const validateEmail = (rule, value, callback) => {
+    if (!value || /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/.test(value)) {
+      callback();
+    } else {
+      callback("Invalid email format");
+    }
+  };
+
+  const validatePassword = (rule, value, callback) => {
+    if (!value || value.length >= 6) {
+      callback();
+    } else {
+      callback("Password must be at least 6 characters long");
     }
   };
 
@@ -35,12 +49,26 @@ const Login = () => {
       <div className="authentication-form card p-3">
         <h1 className="card-title">Welcome Back</h1>
 
-        <Form onFinish={onfinish} layout="vertical">
-          <Form.Item label="Email" name="email">
+        <Form onFinish={onFinish} layout="vertical">
+          <Form.Item
+            label="Email"
+            name="email"
+            rules={[
+              { required: true, message: "Please enter your email" },
+              { validator: validateEmail },
+            ]}
+          >
             <Input placeholder="Email" />
           </Form.Item>
 
-          <Form.Item label="Password" name="password">
+          <Form.Item
+            label="Password"
+            name="password"
+            rules={[
+              { required: true, message: "Please enter your password" },
+              { validator: validatePassword },
+            ]}
+          >
             <Input placeholder="Password" type="password" />
           </Form.Item>
 
