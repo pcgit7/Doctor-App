@@ -128,7 +128,7 @@ const Layout = ({ children }) => {
               }}>
               <i className="ri-notification-line header-action-icon px-3"></i>
               </Badge>
-              <Link className="username mx-2" to="/">
+              <Link className="subtitle mx-2" to="/">
                 {user?.name}
               </Link>
             </div>

@@ -71,7 +71,7 @@ const Notification = () => {
       <Tabs>
         <Tabs.TabPane tab="Unseen" key={0}>
           <div className="d-flex justify-content-end">
-            <h1 className="anchor cursor-pointer" onClick={markAllAsSeen}>
+            <h1 className="subtitle cursor-pointer" onClick={markAllAsSeen}>
               Mark all as seen
             </h1>
           </div>
@@ -90,7 +90,7 @@ const Notification = () => {
 
         <Tabs.TabPane tab="Seen" key={1}>
           <div className="d-flex justify-content-end cursor-pointer">
-            <h1 className="anchor" onClick={deleteAll}>Delete All</h1>
+            <h1 className="subtitle" onClick={deleteAll}>Delete All</h1>
           </div>
           {user?.seenNotifications.map((notification) => {
             return (

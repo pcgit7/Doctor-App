@@ -58,7 +58,7 @@ const UsersLists = () => {
       render: (text, record) => {
         return(
         <div className="d-flex">
-          <h1 className="anchor">Block</h1>
+          <h1 className="subtitle">Block</h1>
         </div>
       )},
     },
