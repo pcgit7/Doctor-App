@@ -11,6 +11,7 @@ const nodemailer = require('nodemailer');
 const secretKey = process.env.JWT_SECRET;
 const gmail_pass = process.env.GMAIL_PASS;
 const front_end = process.env.FRONT_END_URL;
+const mongo = require('../config/dbConfig');
 
 //email config
 const transporter = nodemailer.createTransport({
@@ -235,15 +236,42 @@ router.get("/get-all-approved-doctors", authMiddleware, async (req, res) => {
 
 //doctor appointment
 router.post("/book-appointment", authMiddleware, async (req, res) => {
+
+  const session = await mongo.startSession();
+  
   try {
+    session.startTransaction();
+
+    const date = moment(req.body.date, "DD-MM-YYYY").toISOString();
+    const time = moment(req.body.time, "HH:mm").toISOString();
+    const fromTime = moment(req.body.time, "HH:mm").subtract(1,'hours').toISOString();
+    const toTime = moment(req.body.time, "HH:mm")  .add(1,'hours').toISOString();
+    const doctorId = req.body.doctorId;
+    const doctorInfo = req.body.doctorInfo;
+
     req.body.status = "pending";
     req.body.date = moment(req.body.date,'DD-MM-YYYY').toISOString();
     req.body.time = moment(req.body.time,'HH:mm').toISOString();
 
-    const newAppointment = await new Appointment(req.body);
-    await newAppointment.save();
+    const existingAppointments = await Appointment.find({
+      doctorId,
+      date,
+      time: { $gte: fromTime, $lte: toTime },
+    }).session(session);
 
-    //pushing notifications based on his user id
+    if (existingAppointments.length > 0) {
+      // Slot is already booked
+      return res.status(200).send({
+        message: "Appointments not available ,someone book before you",
+        success: false,
+      });
+    } else {
+      // Slot is available, proceed to book it
+      const newAppointment = new Appointment(req.body);
+
+      await newAppointment.save({ session });
+
+    //pushing notifications based on user id
     const user = await User.findById(req.body.doctorInfo.userId);
 
     user.unseenNotifications.push({
@@ -252,17 +280,23 @@ router.post("/book-appointment", authMiddleware, async (req, res) => {
       type: "new-appointment-request",
     });
 
-    await user.save();
+    await user.save({session});
+
+    await session.commitTransaction();
 
     res.status(200).send({
       message: "Appointment booked successfully",
       success: true,
     });
+  }
   } catch (error) {
+    await session.abortTransaction();
     res.status(500).send({
-      message: "Error getting doctor Info",
+      message: "Error checking or booking appointment",
       success: false,
     });
+  } finally {
+    session.endSession();
   }
 });
 
@@ -296,7 +330,6 @@ router.post("/check-booking-availability", authMiddleware, async (req, res) => {
 
     //console.log(req.body);
 
-    
     const appointments = await Appointment.find({
       doctorId,
       date,

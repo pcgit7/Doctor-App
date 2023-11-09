@@ -10,7 +10,7 @@ import moment from "moment";
 const DoctorAppointment = () => {
   const [appointments, setAppointments] = useState([]);
   const dispatch = useDispatch();
-  const baseUrl = "https://doctor-app-backend-yap2.onrender.com";
+  const baseUrl = "http://localhost:5000";
 
   const getAppointmentsData = async () => {
     try {
@@ -107,7 +107,7 @@ const DoctorAppointment = () => {
             {record.status === "pending" && (
               <div className="d-flex">
                 <h1
-                  className="anchor"
+                  className="subtitle"
                   onClick={() => {
                     changeAppointmentStatus(record, "approved");
                   }}
@@ -115,7 +115,7 @@ const DoctorAppointment = () => {
                   Approve
                 </h1>
                 <h1
-                  className="anchor px-2"
+                  className="subtitle px-2"
                   onClick={() => {
                     changeAppointmentStatus(record, "rejected");
                   }}

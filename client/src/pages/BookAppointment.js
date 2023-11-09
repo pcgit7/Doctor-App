@@ -20,7 +20,7 @@ const BookAppointment = () => {
   const [date, setDate] = useState("");
   const params = useParams();
   const dispatch = useDispatch();
-  const baseUrl = "https://doctor-app-backend-yap2.onrender.com";
+  const baseUrl = "http://localhost:5000";
 
   const getDoctorData = async () => {
     try {
@@ -70,6 +70,11 @@ const BookAppointment = () => {
       if (response.data.success) {
         toast.success(response.data.message);
         navigate('/appointments')
+      }
+
+      else {
+        toast.error(response.data.message);
+        setIsAvailable(false);
       }
     } catch (error) {
       toast.error("error in booking appointment ");
