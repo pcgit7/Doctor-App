@@ -460,7 +460,9 @@ router.post("/password/:id/:token" , async(req,res) => {
       const verifyToken = jwt.verify(token,secretKey);
 
       if(validuser && verifyToken._id){
-          const newPassword = await bcrypt.hash(password , 12);
+
+          const salt = await bcrypt.genSalt(10);
+          const newPassword = await bcrypt.hash(password , salt);
           const setNewUserPass = await User.findByIdAndUpdate(id,{password : newPassword});
 
           await setNewUserPass.save(); 
