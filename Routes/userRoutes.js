@@ -455,6 +455,7 @@ router.post("/password/:id/:token" , async(req,res) => {
         res.status(200).send({message : "Enter Password" , success : false});
         return;
       }
+      
       const validuser = await User.findOne({_id : id, verifyToken : token});
 
       const verifyToken = jwt.verify(token,secretKey);

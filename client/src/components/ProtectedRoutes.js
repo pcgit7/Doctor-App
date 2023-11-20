@@ -9,7 +9,7 @@ import { showLoading,hideLoading } from "../redux/alertsSlice";
 const ProtectedRoutes = (props) => {
     
   const { user } = useSelector((state) => state.user);
-  const baseUrl = "http://localhost:5000";
+  const baseUrl = "https://doctor-app-backend-yap2.onrender.com";
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
